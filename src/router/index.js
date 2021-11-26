@@ -14,7 +14,12 @@ const routes = [
     path: '/create-draw',
     name: 'CreateDraw',
     component: () => import('@/views/CreateDraw.vue')
-  }
+  },
+  {
+    path: '/:cid/:did/player',
+    name: 'Player',
+    component: () => import('@/views/Player.vue'),
+  },
 ]
 
 const router = new VueRouter({
