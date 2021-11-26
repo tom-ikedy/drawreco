@@ -1,19 +1,24 @@
 <template>
-  <div id="app">
-    <div id="header">
-      <div id="logo">
+  <div id='app'>
+    <div id='header'>
+      <div id='logo'>
         <!--
-        <img src="TODO">
+        <img src='TODO'>
         -->
-        <router-link to="/">DrawReco</router-link>
+        <router-link to='/'>DrawReco</router-link>
       </div>
-      <div id="nav">
-        <ul id="nav-item">
-          <li><router-link to="/create-draw">ドロー作成</router-link></li>
-          <!--
-          <li><router-link to="/login">ログイン</router-link></li>
-          <li><router-link to="/RegUser">ユーザー登録</router-link></li>
-          -->
+      <div id='nav'>
+        <ul id='nav-item'>
+          <template v-if='this.$route.params.did === undefined'>
+            <li><router-link to='/create-draw'>ドロー作成</router-link></li>
+            <!--
+            <li><router-link to='/login'>ログイン</router-link></li>
+            <li><router-link to='/RegUser'>ユーザー登録</router-link></li>
+            -->
+          </template>
+          <template v-else>
+            <li><router-link :to="{ name: 'Player' }">参加者一覧</router-link></li>
+          </template>
         </ul>
       </div>
     </div>
@@ -21,7 +26,39 @@
   </div>
 </template>
 
-<style lang="scss">
+<script>
+import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+
+export default {
+  data() {
+    return {
+      cid: '',
+      did: '',
+    };
+  },
+
+  created() {
+    this.cid = this.$route.params.cid;
+    this.did = this.$route.params.did;
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('ログインしました', user.uid);
+      } else {
+        console.log('ログインしていません');
+
+        signInAnonymously(auth) // 匿名ログインの実行
+          .catch((error) => {
+            // ログインに失敗したときの処理
+            console.error('ログインエラー', error);
+          });
+      }
+    });
+  }
+};
+</script>
+
+<style lang='scss'>
 #header {
   text-align: left;
 

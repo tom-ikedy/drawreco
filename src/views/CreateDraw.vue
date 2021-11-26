@@ -1,8 +1,8 @@
 <template>
-  <div class="create-draw">
+  <div class='create-draw'>
     <h1>ドロー作成</h1>
 
-    <div class="create-draw-input">
+    <div class='create-draw-input'>
       <div class='item'>名前</div>
       <div>
         <input
@@ -14,7 +14,7 @@
     </div>
 
     <!--
-    <div class="create-draw-input">
+    <div class='create-draw-input'>
       <div class='item'>試合形式</div>
       <div>
         <form id='gameEvent'>
@@ -25,7 +25,7 @@
     </div>
     -->
 
-    <div class="create-draw-input">
+    <div class='create-draw-input'>
       <div class='item'>コート数</div>
       <div>
         <input
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="create-draw-input">
+    <div class='create-draw-input'>
       <div class='item'>人数</div>
       <div>
         <input
@@ -58,19 +58,18 @@
 </template>
 
 <script>
+import { createDraw } from '@/services/firebaseService';
+
 export default {
   data() {
     return {
       drawName: '',
-
       courtNum: 1,
       courtNumMin: 1,
       courtNumMax: 5,
-
-      playerNum: 2,
-      playerNumMin: 2,
+      playerNum: 4,
+      playerNumMin: 4,
       playerNumMax: 30,
-
       gameEvent: '',
     };
   },
@@ -82,17 +81,19 @@ export default {
   },
 
   methods: {
-    onClickCreate() {
+    async onClickCreate() {
+      const cid = 0;
       /*
       // ラジオボタンで選択されている値を取得
       const gameEventRadio = document.getElementById('gameEvent');
       this.gameEvent = gameEventRadio.elements['gameEvent'].value;
       console.log(this.gameEvent);
       */
-
-      console.log('ドロー名：', this.drawName);
-      console.log('コート数：', this.courtNum);
-      console.log('プレイヤー数：', this.playerNum);
+      /* TODO：試合種別とコート数とプレイヤー数の値チェック */
+      /* TODO：firebaseでのデータ作成 */
+      /*   firebaseからゲストCID取得 */
+      const did = await createDraw(cid, this.drawName, this.courtNum, this.playerNum);
+      this.$router.push({path: `/${cid}/${did}/player` });
     },
   },
 };
