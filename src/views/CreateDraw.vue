@@ -90,8 +90,7 @@ export default {
       console.log(this.gameEvent);
       */
       /* TODO：試合種別とコート数とプレイヤー数の値チェック */
-      /* TODO：firebaseでのデータ作成 */
-      /*   firebaseからゲストCID取得 */
+      /* TODO：firebaseからゲストCID取得 */
       const did = await createDraw(cid, this.drawName, this.courtNum, this.playerNum);
       this.$router.push({path: `/${cid}/${did}/player` });
     },

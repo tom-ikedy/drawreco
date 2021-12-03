@@ -1,4 +1,5 @@
 import { getFirestore, collection, doc, addDoc, getDoc } from "firebase/firestore";
+import { createDraws } from '@/services/createDrawService';
 
 /*
  * Create
@@ -26,6 +27,7 @@ export const createDraw = async (cid, drawName, courtNum, playerNum) => {
   drawInfo.status = '試合中';
   // TODO calculate draw number from firestore circle-0 -> info -> drawNum
   drawInfo.no = 0;
+  drawInfo.draws = createDraws(playerNum, courtNum);
 
   // プレイヤー情報を作成
   const playerInfo = {};
@@ -66,10 +68,26 @@ export const getDrawName = async (cid, did) => {
   return drawInfo.name;
 };
 
+export const getDrawInfo = async (cid, did) => {
+  // firestoreのドキュメントからドロー情報を取得する
+  const docSnap = await getDrawDoc(cid, did);
+  const { drawInfo } = docSnap.data();
+
+  return drawInfo;
+};
+
 export const getPlayerInfo = async (cid, did) => {
   // firebaseのドキュメントからプレイヤー情報を取得する
   const docSnap = await getDrawDoc(cid, did);
   const { playerInfo } = docSnap.data();
 
   return playerInfo;
+};
+
+export const getDocInfo = async (cid, did) => {
+  // firebaseのドキュメントの全ての情報を取得する
+  const docSnap = await getDrawDoc(cid, did);
+  const docInfo = docSnap.data();
+
+  return docInfo;
 };
