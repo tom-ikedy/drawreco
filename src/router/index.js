@@ -20,6 +20,11 @@ const routes = [
     name: 'Player',
     component: () => import('@/views/Player.vue'),
   },
+  {
+    path: '/:cid/:did/draw',
+    name: 'Draw',
+    component: () => import('@/views/Draw.vue'),
+  },
 ]
 
 const router = new VueRouter({
