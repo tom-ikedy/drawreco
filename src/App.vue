@@ -61,13 +61,13 @@ export default {
 
 <style lang='scss'>
 #header {
-  text-align: left;
+  text-align: center;
 
   #logo {
     /* box */
     margin: 3px 0px;
     padding: 0px 10px;
-    background-color: #EFEFEF;
+    background-color: #FFFFFF;
   
     /* text */
     font-size: 40px;
@@ -81,8 +81,9 @@ export default {
 
   #nav-item {
     /* flexbox */
-    display: inline-flex;
+    display: flex;
     flex-flow: row wrap;
+    justify-content: center;
   
     /* box */
     margin: 0px;
@@ -118,5 +119,9 @@ export default {
       }
     }
   } /* #nav-item */
+}
+
+h1, h2, h3, h4 {
+  background-color: #EFEFEF;
 }
 </style>

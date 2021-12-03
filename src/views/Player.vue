@@ -94,11 +94,16 @@ export default {
 </script>
 
 <style>
+#player {
+  text-align: center;
+}
+
 .button-area {
   margin: 20px 0px;
 }
 
 table {
+  margin: 3px auto;
   border-collapse: collapse;
   table-layout: fixed;
 }

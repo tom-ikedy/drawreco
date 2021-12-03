@@ -1,7 +1,7 @@
 <template>
   <div id='draw'>
-    <h1>{{drawInfo.drawName}}</h1>
-    <h2>ドロー</h2>
+    <h1>{{drawInfo.name}}</h1>
+    <h2>ドロー表示</h2>
 
     <h3>試合中</h3>
     <table>
@@ -17,9 +17,9 @@
             <td>{{courtInfo.names[index]}}</td>
           </template>
           <td>
-            {{current[index][0]}} / {{current[index][1]}}
-              －  
-            {{current[index][2]}} / {{current[index][3]}}
+            {{current[index][0]}} ・ {{current[index][1]}}<br>
+              －  <br>
+            {{current[index][2]}} ・ {{current[index][3]}}
           </td>
           <td class='gameset'>
             <button>試合終了</button>
@@ -31,7 +31,7 @@
     <h3>NEXT</h3>
     <table class='draws'>
       <thead>
-        <th>ターン</th>
+        <th>No</th>
         <th>組み合わせ</th>
       </thead>
       <tbody>
@@ -39,9 +39,9 @@
           <template v-if='draws.status === ""'>
             <td>{{draws.turn}}</td>
             <td>
-              {{playerNames[draws.players[0]]}} / {{playerNames[draws.players[1]]}}
-                －  
-              {{playerNames[draws.players[2]]}} / {{playerNames[draws.players[3]]}}
+              {{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}<br>
+                －  <br>
+              {{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}
             </td>
           </template>
         </tr>
@@ -96,7 +96,12 @@ export default {
 </script>
 
 <style>
+#draw {
+  text-align: center;
+}
+
 table {
+  margin: 3px auto;
   border-collapse: collapse;
   table-layout: fixed;
 }
