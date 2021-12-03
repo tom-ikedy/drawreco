@@ -1,4 +1,4 @@
-import { getFirestore, collection, doc, addDoc, getDoc } from "firebase/firestore";
+import { getFirestore, collection, doc, addDoc, getDoc, updateDoc } from "firebase/firestore";
 import { createDraws } from '@/services/createDrawService';
 
 /*
@@ -90,4 +90,16 @@ export const getDocInfo = async (cid, did) => {
   const docInfo = docSnap.data();
 
   return docInfo;
+};
+
+/*
+ * Update
+ */ 
+
+export const updatePlayerInfo = async (cid, did, playerInfo) => {
+  // firebaseのドキュメントのプレイヤー情報を更新する
+  const db = getFirestore();
+  const docRef = doc(db, 'circle-' + cid, did);
+
+  await updateDoc(docRef, {playerInfo});
 };

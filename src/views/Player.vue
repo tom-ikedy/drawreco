@@ -11,22 +11,55 @@
       <tbody>
         <tr v-for='(player, index) in playerInfo.players' :key='player.id'>
           <td>{{index + 1}}</td>
-          <td>{{player.name}}</td>
+          <template v-if='mode === "view"'>
+            <td>{{player.name}}</td>
+          </template>
+          <template v-else>
+            <td>
+              <input
+                type='text'
+                v-model='playerInfo.players[index].name'
+              >
+            </td>
+          </template>
           <td>{{player.status}}</td>
         </tr>
       </tbody>
     </table>
+
+    <div class='button-area'>
+      <template v-if='mode === "view"'>
+        <button
+          type='button'
+          id='button1'
+          @click='onClickEdit'
+        >
+          編集する
+        </button>
+      </template>
+      <template v-else>
+        <button
+          type='button'
+          id='button1'
+          @click='onClickEditComplete'
+        >
+          編集を終了する
+        </button>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
-import { getDrawName, getPlayerInfo } from '@/services/firebaseService';
+import { getDrawName, getPlayerInfo, updatePlayerInfo } from '@/services/firebaseService';
 
 export default {
   data() {
     return {
       drawName: '',
       playerInfo: {},
+      playersClone: {},
+      mode: 'view',
     };
   },
 
@@ -38,10 +71,33 @@ export default {
     // プレイヤー情報を取得
     this.playerInfo = await getPlayerInfo(cid, did);
   },
+
+  methods: {
+    onClickEdit() {
+      // 更新モードに切り替え
+      this.mode = 'edit';
+      // プレイヤー情報のオブジェクト配列をコピー
+      this.playersClone = this.playerInfo.players.map((obj) => Object.assign({}, obj));
+    },
+    onClickEditComplete() {
+      // 表示モードに切り替え
+      this.mode = 'view';
+      // プレイヤー情報に変更がある場合はFirebaseのドキュメントを更新する
+      if(JSON.stringify(this.playerInfo.players) !== JSON.stringify(this.playersClone)) {
+        const cid = this.$route.params.cid;
+        const did = this.$route.params.did;
+        updatePlayerInfo(cid, did, this.playerInfo);
+      }
+    },
+  },
 };
 </script>
 
 <style>
+.button-area {
+  margin: 20px 0px;
+}
+
 table {
   border-collapse: collapse;
   table-layout: fixed;
