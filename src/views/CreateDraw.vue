@@ -27,7 +27,7 @@
 
     <div class='create-draw-input'>
       <div class='item'>コート数</div>
-      <div>
+      <div class='item2'>
         <input
           type='number'
           :min=courtNumMin
@@ -99,13 +99,18 @@ export default {
 </script>
 
 <style>
-.create-draw button {
-  margin: 10px 0px 10px 0px;
+.create-draw {
+  text-align: center;
+
+  button {
+    margin: 10px auto;
+  }
 }
 
 .create-draw-input {
   /* flexbox */
   display: flex;
+  justify-content: center;
 
   /* box */
   margin: 10px 0px 10px 0px;
