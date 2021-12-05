@@ -3,50 +3,64 @@
     <h1>{{drawInfo.name}}</h1>
     <h2>ドロー表示</h2>
 
-    <h3>試合中</h3>
-    <table>
-      <thead>
-        <template v-if='courtInfo.num !== 1'>
-          <th>コート</th>
-        </template>
-        <th>組み合わせ</th>
-      </thead>
-      <tbody>
-        <tr v-for='(name, index) in courtInfo.names' :key='index'>
+    <template v-if='mno !== -1'>
+      <h3>試合中</h3>
+      <table>
+        <thead>
           <template v-if='courtInfo.num !== 1'>
-            <td>{{courtInfo.names[index]}}</td>
+            <th>コート</th>
           </template>
-          <td>
-            {{current[index][0]}} ・ {{current[index][1]}}<br>
-              －  <br>
-            {{current[index][2]}} ・ {{current[index][3]}}
-          </td>
-          <td class='gameset'>
-            <button>試合終了</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>NEXT</h3>
-    <table class='draws'>
-      <thead>
-        <th>No</th>
-        <th>組み合わせ</th>
-      </thead>
-      <tbody>
-        <tr v-for='(draws, index) in drawInfo.draws' :key='index'>
-          <template v-if='draws.status === ""'>
-            <td>{{draws.turn}}</td>
+          <th>No</th>
+          <th>組み合わせ</th>
+        </thead>
+        <tbody>
+          <tr v-for='(name, index) in courtInfo.names' :key='index'>
+            <template v-if='courtInfo.num !== 1'>
+              <td>{{courtInfo.names[index]}}</td>
+            </template>
+            <td>{{mno}}</td>
             <td>
-              {{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}<br>
-                －  <br>
-              {{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}
+              {{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}
+                －  
+              {{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}
             </td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
+            <td class='gameset'>
+              <button
+                type='button'
+                @click='onClickGameSet'
+              >
+                試合終了
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <h3>NEXT</h3>
+      <table class='draws'>
+        <thead>
+          <th>No</th>
+          <th>組み合わせ</th>
+        </thead>
+        <tbody>
+          <tr v-for='(draws, index) in drawInfo.draws' :key='index'>
+            <template v-if='draws.status === 0'>
+              <td>{{draws.mno}}</td>
+              <td>
+                {{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}
+                  －  
+                {{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}
+              </td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+    <template v-else>
+      <div class='game-digested'>
+        全試合終了
+      </div>
+    </template>
   </div>
 </template>
 
@@ -56,17 +70,20 @@ import { getDocInfo } from '@/services/firebaseService';
 export default {
   data() {
     return {
+      cid: 0,
+      did: 0,
+      mno: 0,
       drawInfo: {},
       courtInfo: {},
       playerNames: [],
-      current: [],
+      onGamePlayers: [],
     };
   },
 
   async created() {
-    const cid = this.$route.params.cid;
-    const did = this.$route.params.did;
-    const docInfo = await getDocInfo(cid, did);
+    this.cid = this.$route.params.cid;
+    this.did = this.$route.params.did;
+    const docInfo = await getDocInfo(this.cid, this.did);
     const playerInfo = docInfo.playerInfo;
 
     this.courtInfo = docInfo.courtInfo;
@@ -82,14 +99,24 @@ export default {
   methods: {
     updateCurrent() {
       for (let i=0; i<this.courtInfo.num; i++) {
-        const currentDraw = this.drawInfo.draws.find((v) => v.status === "試合中");
-        this.current[i] = [
-          this.playerNames[currentDraw.players[0]],
-          this.playerNames[currentDraw.players[1]],
-          this.playerNames[currentDraw.players[2]],
-          this.playerNames[currentDraw.players[3]],
-        ];
+        const currentDraw = this.drawInfo.draws.find((v) => v.status === 1);
+        if (currentDraw !== undefined) {
+          this.onGamePlayers[i] = [
+            this.playerNames[currentDraw.players[0]],
+            this.playerNames[currentDraw.players[1]],
+            this.playerNames[currentDraw.players[2]],
+            this.playerNames[currentDraw.players[3]],
+          ];
+          this.mno = currentDraw.mno;
+        }
+        else {
+          this.onGamePlayers[i] = ['', '', '', ''];
+          this.mno = -1;
+        }
       }
+    },
+    onClickGameSet() {
+      this.$router.push(`/${this.cid}/${this.did}/${this.mno}`);
     },
   },
 };
@@ -98,17 +125,17 @@ export default {
 <style>
 #draw {
   text-align: center;
+  font-size: 12px;
+}
+
+.game-digested {
+  font-size: 20px;
 }
 
 table {
   margin: 3px auto;
   border-collapse: collapse;
   table-layout: fixed;
-}
-
-caption {
-  font-size: 20px;
-  font-weight: bold;
 }
 
 th,td {

@@ -103,3 +103,11 @@ export const updatePlayerInfo = async (cid, did, playerInfo) => {
 
   await updateDoc(docRef, {playerInfo});
 };
+
+export const updateDrawInfo = async (cid, did, drawInfo) => {
+  // firebaseのドキュメントのドロー情報を更新する
+  const db = getFirestore();
+  const docRef = doc(db, 'circle-' + cid, did);
+
+  await updateDoc(docRef, {drawInfo});
+};
