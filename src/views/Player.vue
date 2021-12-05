@@ -96,6 +96,7 @@ export default {
 <style>
 #player {
   text-align: center;
+  font-size: 12px;
 }
 
 .button-area {
