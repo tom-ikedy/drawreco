@@ -102,7 +102,7 @@ export const createDraws = (playerNum, courtNum) => {
       status: 0,
       court: -1,
       players: [-1, -1, -1, -1],
-      result: -1, // 0:引き分け 1:P1の勝ち 2:P2の勝ち
+      result: 0, // 0:引き分け 1:P1の勝ち 2:P2の勝ち
       score: [0, 0],
     };
     tmpDraws.mno = i + 1;

@@ -19,8 +19,8 @@
               <td>{{courtInfo.names[index]}}</td>
             </template>
             <td>{{mno}}</td>
-            <td>{{onGamePlayers[index][0]}} / {{onGamePlayers[index][1]}}</td>
-            <td>{{onGamePlayers[index][2]}} / {{onGamePlayers[index][3]}}</td>
+            <td>{{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}</td>
+            <td>{{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}</td>
             <td class='gameset'>
               <button
                 type='button'
@@ -43,8 +43,8 @@
           <tr v-for='(draws, index) in drawInfo.draws' :key='index'>
             <template v-if='draws.status === 0'>
               <td>{{draws.mno}}</td>
-              <td>{{playerNames[draws.players[0]]}} / {{playerNames[draws.players[1]]}}
-              <td>{{playerNames[draws.players[2]]}} / {{playerNames[draws.players[3]]}}</td>
+              <td>{{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}
+              <td>{{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}</td>
             </template>
           </tr>
         </tbody>

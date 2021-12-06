@@ -12,9 +12,9 @@
         <tr v-for='(draws, index) in drawInfo.draws' :key='index'>
           <template v-if='draws.status === 2'>
             <td>{{draws.mno}}</td>
-            <td>{{playerNames[draws.players[0]]}} / {{playerNames[draws.players[1]]}}</td>
+            <td>{{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}</td>
             <td>{{draws.score[0]}} － {{draws.score[1]}}</td>
-            <td>{{playerNames[draws.players[2]]}} / {{playerNames[draws.players[3]]}}</td>
+            <td>{{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}</td>
             <td class='change-score'>
               <button
                 :id='"match-number-" + draws.mno'
