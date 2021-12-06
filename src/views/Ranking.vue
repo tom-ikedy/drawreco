@@ -28,7 +28,6 @@ import { getDocInfo } from '@/services/firebaseService';
 const GAMESET = 2;
 const P1WIN = 1;
 const P2WIN = 2;
-const RANK_BORDER = 3;
 
 export default {
   data() {
@@ -119,7 +118,7 @@ export default {
     });
 
     // ボーダー以上のランクだけを抽出する
-    this.rankInfo = this.rankInfo.filter(rankInfo => rankInfo.rank <= RANK_BORDER);
+    this.rankInfo = this.rankInfo.filter(rankInfo => rankInfo.rank <= docInfo.rankBorder);
   },
 };
 </script>
