@@ -35,6 +35,11 @@ const routes = [
     name: 'Result',
     component: () => import('@/views/Result.vue'),
   },
+  {
+    path: '/:cid/:did/ranking',
+    name: 'Ranking',
+    component: () => import('@/views/Ranking.vue'),
+  },
 ]
 
 const router = new VueRouter({

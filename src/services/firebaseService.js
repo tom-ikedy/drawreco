@@ -33,7 +33,7 @@ export const createDraw = async (cid, drawName, courtNum, playerNum) => {
   const playerInfo = {};
   const players = [];
   for (let i = 0; i<playerNum; i++) {
-    players[i] = {name: 'ゲスト' + String(i + 1), status: '参加中'};
+    players[i] = {name: String(i + 1) + '番', status: '参加中'};
   }
   playerInfo.num = playerNum;
   playerInfo.players = players;
