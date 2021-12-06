@@ -28,6 +28,7 @@ export const createDraw = async (cid, drawName, courtNum, playerNum) => {
   // TODO calculate draw number from firestore circle-0 -> info -> drawNum
   drawInfo.no = 0;
   drawInfo.draws = createDraws(playerNum, courtNum);
+  drawInfo.rankBorder = 3;
 
   // プレイヤー情報を作成
   const playerInfo = {};
@@ -110,4 +111,12 @@ export const updateDrawInfo = async (cid, did, drawInfo) => {
   const docRef = doc(db, 'circle-' + cid, did);
 
   await updateDoc(docRef, {drawInfo});
+};
+
+export const updateDocInfo = async (cid, did, docInfo) => {
+  // firebaseのドキュメントを更新する
+  const db = getFirestore();
+  const docRef = doc(db, 'circle-' + cid, did);
+
+  await updateDoc(docRef, docInfo);
 };

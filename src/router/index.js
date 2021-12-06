@@ -40,6 +40,11 @@ const routes = [
     name: 'Ranking',
     component: () => import('@/views/Ranking.vue'),
   },
+  {
+    path: '/:cid/:did/setting',
+    name: 'Setting',
+    component: () => import('@/views/Setting.vue'),
+  },
 ]
 
 const router = new VueRouter({
