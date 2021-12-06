@@ -1,7 +1,7 @@
 <template>
   <div id='draw'>
     <h1>{{drawInfo.name}}</h1>
-    <h2>ドロー表示</h2>
+    <h2>ドロー</h2>
 
     <template v-if='mno !== -1'>
       <h3>試合中</h3>
@@ -11,7 +11,7 @@
             <th>コート</th>
           </template>
           <th>No</th>
-          <th>組み合わせ</th>
+          <th colspan='2'>組み合わせ</th>
         </thead>
         <tbody>
           <tr v-for='(name, index) in courtInfo.names' :key='index'>
@@ -19,11 +19,8 @@
               <td>{{courtInfo.names[index]}}</td>
             </template>
             <td>{{mno}}</td>
-            <td>
-              {{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}
-                －  
-              {{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}
-            </td>
+            <td>{{onGamePlayers[index][0]}} / {{onGamePlayers[index][1]}}</td>
+            <td>{{onGamePlayers[index][2]}} / {{onGamePlayers[index][3]}}</td>
             <td class='gameset'>
               <button
                 type='button'
@@ -40,17 +37,14 @@
       <table class='draws'>
         <thead>
           <th>No</th>
-          <th>組み合わせ</th>
+          <th colspan='2'>組み合わせ</th>
         </thead>
         <tbody>
           <tr v-for='(draws, index) in drawInfo.draws' :key='index'>
             <template v-if='draws.status === 0'>
               <td>{{draws.mno}}</td>
-              <td>
-                {{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}
-                  －  
-                {{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}
-              </td>
+              <td>{{playerNames[draws.players[0]]}} / {{playerNames[draws.players[1]]}}
+              <td>{{playerNames[draws.players[2]]}} / {{playerNames[draws.players[3]]}}</td>
             </template>
           </tr>
         </tbody>
@@ -116,7 +110,7 @@ export default {
       }
     },
     onClickGameSet() {
-      this.$router.push(`/${this.cid}/${this.did}/${this.mno}`);
+      this.$router.push(`/${this.cid}/${this.did}/draw/${this.mno}`);
     },
   },
 };

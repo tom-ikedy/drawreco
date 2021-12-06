@@ -129,15 +129,12 @@ export default {
 
       updateDrawInfo(cid, did, this.drawInfo);
 
-      // ドロー表示に戻る
-      this.$router.push(`/${cid}/${did}/draw`);
+      // 前のページに戻る
+      this.$router.go(-1);
     },
     onClickCancel() {
-      const cid = this.$route.params.cid;
-      const did = this.$route.params.did;
-
-      // ドロー表示に戻る
-      this.$router.push(`/${cid}/${did}/draw`);
+      // 前のページに戻る
+      this.$router.go(-1);
     },
   },
 };
