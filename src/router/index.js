@@ -26,9 +26,14 @@ const routes = [
     component: () => import('@/views/Draw.vue'),
   },
   {
-    path: '/:cid/:did/:mno',
+    path: '/:cid/:did/draw/:mno',
     name: 'Match',
     component: () => import('@/views/Match.vue'),
+  },
+  {
+    path: '/:cid/:did/result',
+    name: 'Result',
+    component: () => import('@/views/Result.vue'),
   },
 ]
 

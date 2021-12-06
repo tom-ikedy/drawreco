@@ -1,7 +1,7 @@
 <template>
   <div id='player'>
     <h1>{{drawName}}</h1>
-    <h2>参加者一覧</h2>
+    <h2>参加者</h2>
     <table class='player-list'>
       <thead>
         <th class='player-no'>番号</th>

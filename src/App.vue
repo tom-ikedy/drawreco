@@ -17,8 +17,9 @@
             -->
           </template>
           <template v-else>
-            <li><router-link :to="{ name: 'Draw' }">ドロー表示</router-link></li>
-            <li><router-link :to="{ name: 'Player' }">参加者一覧</router-link></li>
+            <li><router-link :to="{ name: 'Draw' }">ドロー</router-link></li>
+            <li><router-link :to="{ name: 'Player' }">参加者</router-link></li>
+            <li><router-link :to="{ name: 'Result' }">試合結果</router-link></li>
           </template>
         </ul>
       </div>
