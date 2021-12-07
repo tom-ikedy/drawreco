@@ -179,7 +179,7 @@ export default {
       }
     },
 
-    onClickInput() {
+    async onClickInput() {
       const cid = this.$route.params.cid;
       const did = this.$route.params.did;
       const mno = this.$route.params.mno;
@@ -205,7 +205,7 @@ export default {
       this.drawInfo.draws[mno - 1].status = Number(this.gameStatus);
 
       // Firebaseのドロー情報を更新する
-      updateDrawInfo(cid, did, this.drawInfo);
+      await updateDrawInfo(cid, did, this.drawInfo);
 
       // 前のページに戻る
       this.$router.go(-1);

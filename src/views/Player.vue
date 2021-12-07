@@ -6,7 +6,9 @@
       <thead>
         <th class='player-no'>番号</th>
         <th class='player-name'>名前</th>
+        <!--
         <th class='player-status'>参加状況</th>
+        -->
       </thead>
       <tbody>
         <tr v-for='(player, index) in playerInfo.players' :key='player.id'>
@@ -22,7 +24,9 @@
               >
             </td>
           </template>
+          <!--
           <td>{{player.status}}</td>
+          -->
         </tr>
       </tbody>
     </table>
@@ -97,6 +101,18 @@ export default {
 #player {
   text-align: center;
   font-size: 12px;
+}
+
+.player-no {
+  width: 20%;
+}
+
+.player-name {
+  width: 50%;
+}
+
+.player-status {
+  width: 30%;
 }
 
 .button-area {

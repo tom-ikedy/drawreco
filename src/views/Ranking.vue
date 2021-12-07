@@ -105,7 +105,7 @@ export default {
 
     // 勝率順にソートする
     this.rankInfo.sort(function(a, b) {
-      return (a.rate > b.rate) ? -1 : 1;
+      return (Number(a.rate) > Number(b.rate)) ? -1 : 1;
     });
 
     // ランクを設定する
@@ -118,7 +118,7 @@ export default {
     });
 
     // ボーダー以上のランクだけを抽出する
-    this.rankInfo = this.rankInfo.filter(rankInfo => rankInfo.rank <= docInfo.rankBorder);
+    this.rankInfo = this.rankInfo.filter(rankInfo => rankInfo.rank <= docInfo.config.rankBorder);
   },
 };
 </script>
