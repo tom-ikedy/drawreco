@@ -105,7 +105,7 @@ export default {
 
     // 勝率順にソートする
     this.rankInfo.sort(function(a, b) {
-      return (a.rate > b.rate) ? -1 : 1;
+      return (Number(a.rate) > Number(b.rate)) ? -1 : 1;
     });
 
     // ランクを設定する
