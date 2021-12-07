@@ -5,6 +5,7 @@
 
     <template v-if='mno !== -1'>
       <h3>試合中</h3>
+
       <table>
         <thead>
           <template v-if='courtInfo.num !== 1'>
@@ -14,7 +15,7 @@
           <th colspan='2'>組み合わせ</th>
         </thead>
         <tbody>
-          <tr v-for='(name, index) in courtInfo.names' :key='index'>
+          <tr v-for='(name, index) in courtInfo.names' :key='index' @click='onClickMatch(mno)'>
             <template v-if='courtInfo.num !== 1'>
               <td>{{courtInfo.names[index]}}</td>
             </template>
@@ -22,17 +23,12 @@
             <td>{{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}</td>
             <td>{{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}</td>
             <td class='gameset'>
-              <button
-                type='button'
-                @click='onClickGameSet'
-              >
-                試合終了
-              </button>
+              <button>試合<br>終了</button>
             </td>
           </tr>
         </tbody>
       </table>
-  
+
       <h3>NEXT</h3>
       <table class='draws'>
         <thead>
@@ -40,7 +36,7 @@
           <th colspan='2'>組み合わせ</th>
         </thead>
         <tbody>
-          <tr v-for='(draws, index) in drawInfo.draws' :key='index'>
+          <tr v-for='(draws, index) in drawInfo.draws' :key='index' @click='onClickMatch(draws.mno)'>
             <template v-if='draws.status === 0'>
               <td>{{draws.mno}}</td>
               <td>{{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}
@@ -50,6 +46,7 @@
         </tbody>
       </table>
     </template>
+
     <template v-else>
       <div class='game-digested'>
         全試合終了
@@ -109,14 +106,14 @@ export default {
         }
       }
     },
-    onClickGameSet() {
-      this.$router.push(`/${this.cid}/${this.did}/draw/${this.mno}`);
+    onClickMatch(mno) {
+      this.$router.push(`/${this.cid}/${this.did}/draw/${mno}`);
     },
   },
 };
 </script>
 
-<style>
+<style lang='scss'>
 #draw {
   text-align: center;
   font-size: 12px;
@@ -124,6 +121,14 @@ export default {
 
 .game-digested {
   font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 table {
