@@ -11,38 +11,48 @@ const routes = [
     component: Home
   },
   {
-    path: '/create-draw',
+    path: '/circle-:cid/create-draw',
     name: 'CreateDraw',
     component: () => import('@/views/CreateDraw.vue')
   },
   {
-    path: '/:cid/:did/player',
+    path: '/circle-:cid/',
+    name: 'Circle',
+    component: () => import('@/views/Circle.vue'),
+  },
+  {
+    path: '/circle-:cid/draw-:did/player',
     name: 'Player',
     component: () => import('@/views/Player.vue'),
   },
   {
-    path: '/:cid/:did/draw',
+    path: '/circle-:cid/draw-list',
+    name: 'DrawList',
+    component: () => import('@/views/DrawList.vue'),
+  },
+  {
+    path: '/circle-:cid/draw-:did/',
     name: 'Draw',
     component: () => import('@/views/Draw.vue'),
   },
   {
-    path: '/:cid/:did/draw/:mno',
+    path: '/circle-:cid/draw-:did/match-:mno',
     name: 'Match',
     component: () => import('@/views/Match.vue'),
     props: true,
   },
   {
-    path: '/:cid/:did/result',
+    path: '/circle-:cid/draw-:did/result',
     name: 'Result',
     component: () => import('@/views/Result.vue'),
   },
   {
-    path: '/:cid/:did/ranking',
+    path: '/circle-:cid/draw-:did/ranking',
     name: 'Ranking',
     component: () => import('@/views/Ranking.vue'),
   },
   {
-    path: '/:cid/:did/setting',
+    path: '/circle-:cid/draw-:did/setting',
     name: 'Setting',
     component: () => import('@/views/Setting.vue'),
   },

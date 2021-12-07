@@ -92,7 +92,7 @@ export default {
       /* TODO：試合種別とコート数とプレイヤー数の値チェック */
       /* TODO：firebaseからゲストCID取得 */
       const did = await createDraw(cid, this.drawName, this.courtNum, this.playerNum);
-      this.$router.push({ name: 'Player', params: {cid, did} });
+      this.$router.push({ name: 'Draw', params: {cid, did} });
     },
   },
 };
