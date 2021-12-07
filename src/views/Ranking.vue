@@ -118,7 +118,7 @@ export default {
     });
 
     // ボーダー以上のランクだけを抽出する
-    this.rankInfo = this.rankInfo.filter(rankInfo => rankInfo.rank <= docInfo.rankBorder);
+    this.rankInfo = this.rankInfo.filter(rankInfo => rankInfo.rank <= docInfo.config.rankBorder);
   },
 };
 </script>

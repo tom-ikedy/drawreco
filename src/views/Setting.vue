@@ -13,7 +13,7 @@
           <tr>
             <td>ランキング表示</td>
             <td>
-              <select v-model='docInfo.rankBorder'>
+              <select v-model='rankBorder'>
                 <option v-for='(player, index) in playerInfo.players' :key='index'>
                   {{index + 1}}
                 </option>
@@ -41,6 +41,7 @@ export default {
       docInfo: {},
       drawInfo: {},
       playerInfo: {},
+      rankBorder: 0,
     };
   },
 
@@ -49,6 +50,7 @@ export default {
     const did = this.$route.params.did;
     this.docInfo = await getDocInfo(cid, did);
 
+    this.rankBorder = this.docInfo.config.rankBorder;
     this.drawInfo = this.docInfo.drawInfo;
     this.playerInfo = this.docInfo.playerInfo;
   },
@@ -58,6 +60,7 @@ export default {
       const cid = this.$route.params.cid;
       const did = this.$route.params.did;
       // Firebaseのドキュメント情報を更新する
+      this.docInfo.config.rankBorder = this.rankBorder;
       updateDocInfo(cid, did, this.docInfo);
       // 前のページに戻る
       this.$router.go(-1);
