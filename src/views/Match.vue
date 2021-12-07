@@ -123,7 +123,16 @@
 <script>
 import { getDocInfo, updateDrawInfo } from '@/services/firebaseService';
 
+const GS_GAMESET = 2;
+
 export default {
+  props: {
+    isGameSet: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   data() {
     return {
       drawInfo: {},
@@ -150,7 +159,12 @@ export default {
     this.playerNames[1] = playerInfo.players[pIndex[1]].name;
     this.playerNames[2] = playerInfo.players[pIndex[2]].name;
     this.playerNames[3] = playerInfo.players[pIndex[3]].name;
-    this.gameStatus = this.drawInfo.draws[mno - 1].status;
+    if (this.isGameSet === true) {
+      this.gameStatus = GS_GAMESET;
+    }
+    else {
+      this.gameStatus = this.drawInfo.draws[mno - 1].status;
+    }
     this.gameResult = this.drawInfo.draws[mno - 1].result;
   },
 
@@ -190,7 +204,7 @@ export default {
       this.changeScore();
       this.drawInfo.draws[mno - 1].result = this.gameResult;
 
-      if ( (this.gameStatus === 2)
+      if ( (this.gameStatus === GS_GAMESET)
         && (this.gameStatus !== this.drawInfo.draws[mno - 1].status) ) {
         // 試合終了に設定された時、次に試合開始となるドローを設定する
         for (let i=0; i<this.drawInfo.draws.length; i++) {

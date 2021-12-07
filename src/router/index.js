@@ -29,6 +29,7 @@ const routes = [
     path: '/:cid/:did/draw/:mno',
     name: 'Match',
     component: () => import('@/views/Match.vue'),
+    props: true,
   },
   {
     path: '/:cid/:did/result',

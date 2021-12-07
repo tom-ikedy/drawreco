@@ -57,7 +57,7 @@ export default {
       const cid = this.$route.params.cid;
       const did = this.$route.params.did;
       const mno = e.currentTarget.id.slice(-1);
-      this.$router.push(`/${cid}/${did}/draw/${mno}`);
+      this.$router.push({ name: 'Match', params: {cid, did, mno} });
     }
   },
 };

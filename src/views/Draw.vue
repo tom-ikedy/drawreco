@@ -15,14 +15,14 @@
           <th colspan='2'>組み合わせ</th>
         </thead>
         <tbody>
-          <tr v-for='(name, index) in courtInfo.names' :key='index' @click='onClickMatch(mno)'>
+          <tr v-for='(name, index) in courtInfo.names' :key='index'>
             <template v-if='courtInfo.num !== 1'>
               <td>{{courtInfo.names[index]}}</td>
             </template>
-            <td>{{mno}}</td>
-            <td>{{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}</td>
-            <td>{{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}</td>
-            <td class='gameset'>
+            <td @click='onClickMatch(mno)'>{{mno}}</td>
+            <td @click='onClickMatch(mno)'>{{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}</td>
+            <td @click='onClickMatch(mno)'>{{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}</td>
+            <td @click='onClickGameSet' class='gameset'>
               <button>試合<br>終了</button>
             </td>
           </tr>
@@ -106,8 +106,11 @@ export default {
         }
       }
     },
+    onClickGameSet() {
+      this.$router.push({name: 'Match', params: {cid: this.cid, did: this.did, mno: this.mno, isGameSet: true} });
+    },
     onClickMatch(mno) {
-      this.$router.push(`/${this.cid}/${this.did}/draw/${mno}`);
+      this.$router.push({name: 'Match', params: {cid: this.cid, did: this.did, mno} });
     },
   },
 };
