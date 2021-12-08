@@ -9,7 +9,8 @@
       </div>
       <div id='nav'>
         <ul id='nav-item'>
-          <template v-if='(this.$route.params.cid === undefined) || (this.$route.params.cid === 0)'>
+          <!-- HOME画面で表示するメニュー -->
+          <template v-if='(this.$route.params.cid === undefined)'>
             <li><router-link :to="{ name: 'CreateDraw', params: {cid: 0} }">新規ドロー作成</router-link></li>
             <li><router-link :to="{ name: 'DrawList', params: {cid: 0} }">ドロー一覧</router-link></li>
             <!--
@@ -17,19 +18,30 @@
             <li><router-link to='/RegUser'>ユーザー登録</router-link></li>
             -->
           </template>
+
+          <!-- HOME画面以外で表示するメニュー -->
           <template v-else>
-            <li><router-link :to="{ name: 'Circle' }">サークルトップ</router-link></li>
-            <template v-if='this.$route.params.did === undefined'>
-            <li><router-link :to="{ name: 'CreateDraw' }">新規ドロー作成</router-link></li>
-              <li><router-link :to="{ name: 'DrawList' }">ドロー一覧</router-link></li>
+            <!-- サークルページ（ゲスト以外）に表示するメニュー -->
+            <template v-if='(this.$route.params.cid != 0)'>
+              <li><router-link :to="{ name: 'Circle' }">サークルトップ</router-link></li>
             </template>
-            <template v-else>
-              <li><router-link :to="{ name: 'Draw' }">ドロー</router-link></li>
-              <li><router-link :to="{ name: 'Player' }">参加者</router-link></li>
-              <li><router-link :to="{ name: 'Result' }">試合結果</router-link></li>
-              <li><router-link :to="{ name: 'Ranking' }">ランキング</router-link></li>
-              <li><router-link :to="{ name: 'Setting' }">設定</router-link></li>
-            </template>
+
+            <!-- 全員に表示するメニュー -->
+
+              <!-- ドロー表示中のメニュー -->
+              <template v-if='this.$route.params.did != undefined'>
+                <li><router-link :to="{ name: 'Draw' }">ドロー</router-link></li>
+                <li><router-link :to="{ name: 'Player' }">参加者</router-link></li>
+                <li><router-link :to="{ name: 'Result' }">試合結果</router-link></li>
+                <li><router-link :to="{ name: 'Ranking' }">ランキング</router-link></li>
+                <li><router-link :to="{ name: 'Setting' }">設定</router-link></li>
+              </template>
+
+              <!-- ドロー表示中以外のメニュー -->
+              <template v-else>
+                <li><router-link :to="{ name: 'CreateDraw' }">新規ドロー作成</router-link></li>
+                <li><router-link :to="{ name: 'DrawList' }">ドロー一覧</router-link></li>
+              </template>
           </template>
         </ul>
       </div>
@@ -42,16 +54,7 @@
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 
 export default {
-  data() {
-    return {
-      cid: 0,
-      did: '',
-    };
-  },
-
   created() {
-    this.cid = this.$route.params.cid;
-    this.did = this.$route.params.did;
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
