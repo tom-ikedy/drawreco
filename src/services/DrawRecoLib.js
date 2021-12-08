@@ -1,5 +1,6 @@
 import {
   getAllDocument,
+  deleteDocument,
 } from '@/services/firebaseService';
 
 /* 
@@ -12,15 +13,25 @@ export const getDrawAll = async (cid) => {
   const docsRef = await getAllDocument(collection_id);
   const drawAll = [];
 
-  docsRef.docs.forEach((obj, i) => {
+  docsRef.docs.forEach((obj) => {
     // サークル情報は追加しない
     if (obj.id !== 'info') {
       const drawFormat = {did: '', data: '' };
       drawFormat.did = obj.id;
       drawFormat.data = obj.data();
-      drawAll[i] = drawFormat;
+      drawAll.push(drawFormat);
     }
   });
 
   return drawAll;
+};
+
+/*
+ * Delete
+ */
+
+// ドローを削除する
+export const deleteDraw = async (cid, did) => {
+  const col_id = 'circle-' + cid;
+  await deleteDocument(col_id, did);
 };
