@@ -74,6 +74,25 @@ export default {
 </script>
 
 <style lang='scss'>
+h1, h2, h3, h4 {
+  border-width: 2px;
+  border-style: none none ridge none;
+  border-color: yellowgreen;
+}
+
+h1 { margin: 3% 5%; }
+h2 { margin: 3% 10%; }
+h3 { margin: 3% 15%; }
+
+#app {
+  background-image: url(img/header.png);
+  background-repeat: repeat-y;
+  background-position: center;
+  background-size: cover;
+  background-color: #CCC;
+  background-blend-mode: screen;
+}
+
 #header {
   text-align: center;
 
@@ -81,12 +100,11 @@ export default {
     /* box */
     margin: 3px 0px;
     padding: 0px 10px;
-    background-color: #FFFFFF;
-  
+
     /* text */
-    font-size: 40px;
-    font-weight: 900;
-    color: green;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
 
     a {
       color: green;
@@ -101,7 +119,7 @@ export default {
   
     /* box */
     margin: 0px;
-    padding: 0px;
+    padding: 0px 0px 10px 0px;
 
     li {
       /* box */
@@ -110,7 +128,7 @@ export default {
       padding: 2px 5px;
       width: 120px;
       background-color: #8eff8e;
-    
+
       /* list */
       list-style: none;
     
@@ -133,9 +151,5 @@ export default {
       }
     }
   } /* #nav-item */
-}
-
-h1, h2, h3, h4 {
-  background-color: #EFEFEF;
 }
 </style>
