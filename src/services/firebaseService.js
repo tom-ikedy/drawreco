@@ -1,4 +1,13 @@
-import { getFirestore, collection, doc, addDoc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  doc,
+  addDoc,
+  getDoc,
+  getDocs,
+  updateDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { createDraws } from '@/services/createDrawService';
 
 /*
@@ -44,10 +53,11 @@ export const createDraw = async (cid, drawName, courtNum, playerNum) => {
 
   // firestoreにドキュメントを追加
   const docRef = await addDoc(col, {
+    config,
     courtInfo,
+    date: Timestamp.now(),
     drawInfo,
     playerInfo,
-    config,
   });
 
   return docRef.id;
@@ -95,6 +105,12 @@ export const getDocInfo = async (cid, did) => {
   const docInfo = docSnap.data();
 
   return docInfo;
+};
+
+export const getAllDocument = async (collection_id) => {
+  // firebaseの全てのドキュメントを取得する
+  const db = getFirestore();
+  return await getDocs(collection(db, collection_id));
 };
 
 /*
