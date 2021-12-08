@@ -2,6 +2,20 @@
   <div id='player'>
     <h1>{{drawName}}</h1>
     <h2>参加者</h2>
+
+    <div class='button-area'>
+      <template v-if='mode === "view"'>
+        <button type='button' id='button1' @click='onClickEdit'>
+          名前を変更する
+        </button>
+      </template>
+      <template v-else>
+        <button type='button' id='button1' @click='onClickEditComplete'>
+          名前変更を終了する
+        </button>
+      </template>
+    </div>
+
     <table class='player-list'>
       <thead>
         <th class='player-no'>番号</th>
@@ -30,27 +44,6 @@
         </tr>
       </tbody>
     </table>
-
-    <div class='button-area'>
-      <template v-if='mode === "view"'>
-        <button
-          type='button'
-          id='button1'
-          @click='onClickEdit'
-        >
-          編集する
-        </button>
-      </template>
-      <template v-else>
-        <button
-          type='button'
-          id='button1'
-          @click='onClickEditComplete'
-        >
-          編集を終了する
-        </button>
-      </template>
-    </div>
   </div>
 </template>
 

@@ -29,11 +29,18 @@
         <button @click='onClickCancel'>キャンセル</button>
       </div>
     </div>
+
+    <div class='draw-delete'>
+      <button @click='onClickDeleteDraw'>
+        このドローを削除する
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import { getDocInfo, updateDocInfo } from '@/services/firebaseService';
+import { deleteDraw } from '@/services/DrawRecoLib.js';
 
 export default {
   data() {
@@ -69,6 +76,18 @@ export default {
       // 前のページに戻る
       this.$router.go(-1);
     },
+    async onClickDeleteDraw() {
+      // 削除するか確認
+      const confirmMessage = 'このドローを削除してもよろしいですか？';
+      const ans = window.confirm(confirmMessage);
+
+      // ダイアログでOKされた場合に削除する
+      if (ans === true) {
+        // ドローを削除する
+        await deleteDraw(this.$route.params.cid, this.$route.params.did);
+        this.$router.push({ name: 'DrawList' });
+      }
+    },
   }
 };
 </script>
@@ -92,6 +111,14 @@ export default {
 
   td {
     background-color: #FFFFFF;
+  }
+
+  .draw-delete {
+    margin: 100px auto;
+    
+    button {
+      color: red;
+    }
   }
 }
 </style>

@@ -6,23 +6,18 @@
     <table class='result'>
       <thead>
         <th>No</th>
-        <th colspan='3'>組み合わせ</th>
+        <th colspan='3'>スコア</th>
       </thead>
       <tbody>
-        <tr v-for='(draws, index) in drawInfo.draws' :key='index'>
+        <tr
+          v-for='(draws, index) in drawInfo.draws' :key='index'
+          :id='"match-number-" + draws.mno' @click='onClickChangeScore'
+        >
           <template v-if='draws.status === 2'>
             <td>{{draws.mno}}</td>
             <td>{{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}</td>
             <td>{{draws.score[0]}} － {{draws.score[1]}}</td>
             <td>{{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}</td>
-            <td class='change-score'>
-              <button
-                :id='"match-number-" + draws.mno'
-                @click='onClickChangeScore'
-              >
-                スコア変更
-              </button>
-            </td>
           </template>
         </tr>
       </tbody>
@@ -62,7 +57,7 @@ export default {
       const cid = this.$route.params.cid;
       const did = this.$route.params.did;
       const mno = e.currentTarget.id.slice(-1);
-      this.$router.push(`/${cid}/${did}/draw/${mno}`);
+      this.$router.push({ name: 'Match', params: {cid, did, mno} });
     }
   },
 };
