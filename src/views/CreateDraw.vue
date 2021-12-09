@@ -28,26 +28,20 @@
     <div class='create-draw-input'>
       <div class='item'>コート数</div>
       <div class='item2'>
-        <input
-          type='number'
-          :min=courtNumMin
-          :max=courtNumMax
-          id='courtNum'
-          v-model='courtNum' 
-        >面
+        <select v-model='courtNum'>
+          <option v-for='n of (courtNumMax - courtNumMin + 1)' :key='n'>{{courtNumMin + n - 1}}</option>
+        </select>
+        面
       </div>
     </div>
 
     <div class='create-draw-input'>
       <div class='item'>人数</div>
       <div>
-        <input
-          type='number'
-          :min=playerNumMin
-          :max=playerNumMax
-          id='playerNum'
-          v-model='playerNum' 
-        >人
+        <select v-model='playerNum'>
+          <option v-for='n of (playerNumMax - playerNumMin + 1)' :key='n'>{{playerNumMin + n - 1}}</option>
+        </select>
+        人
       </div>
     </div>
 
@@ -66,10 +60,10 @@ export default {
       drawName: '',
       courtNum: 1,
       courtNumMin: 1,
-      courtNumMax: 5,
+      courtNumMax: 1,
       playerNum: 4,
       playerNumMin: 4,
-      playerNumMax: 30,
+      playerNumMax: 8,
       gameEvent: '',
     };
   },
@@ -98,7 +92,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss'>
 .create-draw {
   text-align: center;
 

@@ -4,51 +4,55 @@
     <h2>ドロー</h2>
 
     <template v-if='mno !== -1'>
-      <h3>試合中</h3>
-
-      <table>
-        <thead>
-          <template v-if='courtInfo.num !== 1'>
-            <th>コート</th>
-          </template>
-          <th>No</th>
-          <th colspan='2'>組み合わせ</th>
-        </thead>
-        <tbody>
-          <tr v-for='(name, index) in courtInfo.names' :key='index'>
+      <div class='ongame-draws'>
+        <h3>試合中</h3>
+  
+        <table>
+          <thead>
             <template v-if='courtInfo.num !== 1'>
-              <td>{{courtInfo.names[index]}}</td>
+              <th>コート</th>
             </template>
-            <td @click='onClickMatch(mno)'>{{mno}}</td>
-            <td @click='onClickMatch(mno)'>{{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}</td>
-            <td @click='onClickMatch(mno)'>{{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}</td>
-            <td @click='onClickGameSet' class='gameset'>
-              <button>試合<br>終了</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <th>No</th>
+            <th colspan='2'>組み合わせ</th>
+          </thead>
+          <tbody>
+            <tr v-for='(name, index) in courtInfo.names' :key='index'>
+              <template v-if='courtInfo.num !== 1'>
+                <td>{{courtInfo.names[index]}}</td>
+              </template>
+              <td @click='onClickMatch(mno)'>{{mno}}</td>
+              <td @click='onClickMatch(mno)'>{{onGamePlayers[index][0]}} ・ {{onGamePlayers[index][1]}}</td>
+              <td @click='onClickMatch(mno)'>{{onGamePlayers[index][2]}} ・ {{onGamePlayers[index][3]}}</td>
+              <td @click='onClickGameSet' class='gameset'>
+                <button>試合<br>終了</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3>NEXT</h3>
-      <table class='draws'>
-        <thead>
-          <th>No</th>
-          <th colspan='2'>組み合わせ</th>
-        </thead>
-        <tbody>
-          <tr v-for='(draws, index) in drawInfo.draws' :key='index' @click='onClickMatch(draws.mno)'>
-            <template v-if='draws.status === 0'>
-              <td>{{draws.mno}}</td>
-              <td>{{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}
-              <td>{{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}</td>
-            </template>
-          </tr>
-        </tbody>
-      </table>
+      <div class='next-draws'>
+        <h3>NEXT</h3>
+        <table>
+          <thead>
+            <th>No</th>
+            <th colspan='2'>組み合わせ</th>
+          </thead>
+          <tbody>
+            <tr v-for='(draws, index) in drawInfo.draws' :key='index' @click='onClickMatch(draws.mno)'>
+              <template v-if='draws.status === 0'>
+                <td>{{draws.mno}}</td>
+                <td>{{playerNames[draws.players[0]]}} ・ {{playerNames[draws.players[1]]}}
+                <td>{{playerNames[draws.players[2]]}} ・ {{playerNames[draws.players[3]]}}</td>
+              </template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </template>
 
     <template v-else>
-      <div class='game-digested'>
+      <div class='all-game-completed'>
         全試合終了
       </div>
     </template>
@@ -57,6 +61,8 @@
 
 <script>
 import { getDocInfo } from '@/services/firebaseService';
+
+const GS_ONGAME = 1;
 
 export default {
   data() {
@@ -90,7 +96,7 @@ export default {
   methods: {
     updateCurrent() {
       for (let i=0; i<this.courtInfo.num; i++) {
-        const currentDraw = this.drawInfo.draws.find((v) => v.status === 1);
+        const currentDraw = this.drawInfo.draws.find((v) => v.status === GS_ONGAME);
         if (currentDraw !== undefined) {
           this.onGamePlayers[i] = [
             this.playerNames[currentDraw.players[0]],
@@ -117,46 +123,28 @@ export default {
 </script>
 
 <style lang='scss'>
+@import '../css/style-table.css';
+
 #draw {
   text-align: center;
   font-size: 12px;
 }
 
-.game-digested {
-  font-size: 20px;
-}
+.gameset {
+  background-color: #FFFFFF00;
+  border-style: none none none solid;
 
-a {
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
+  button {
+    margin: 5px 0;
+    line-height: 110%;
   }
 }
 
-table {
-  margin: 3px auto;
-  border-collapse: collapse;
-  table-layout: fixed;
+.next-draws {
+  margin: 30px auto;
 }
 
-th,td {
-  /* box */
-  border: 1px solid;
-  padding: 5px 10px;
-}
-
-th {
-  background-color: #8EFF8E;
-}
-
-td {
-  white-space: pre-wrap;
-  background-color: #E0FFE0;
-  text-align: center;
-}
-
-.gameset {
-  background-color: #FFFFFF;
+.all-game-completed {
+  font-size: 20px;
 }
 </style>

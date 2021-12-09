@@ -4,27 +4,24 @@
     <h2>No{{this.$route.params.mno}} 試合結果入力</h2>
 
     <div class='match-status'>
-      <button
-        id='game-status-0'
-        :class="[ gameStatus === 0 ? 'active' : 'nonactive' ]"
-        @click='onClickGameStatus'
-      >
+      <label :class="[ gameStatus === 0 ? 'active' : 'nonactive' ]">
+        <input type='radio' name='game-status'
+          id='game-status-0' @click='onClickGameStatus'
+          :checked="gameStatus === 0">
         試合開始前
-      </button>
-      <button
-        id='game-status-1'
-        :class="[ gameStatus === 1 ? 'active' : 'nonactive' ]"
-        @click='onClickGameStatus'
-      >
+      </label>
+      <label :class="[ gameStatus === 1 ? 'active' : 'nonactive' ]">
+        <input type='radio' name='game-status'
+          id='game-status-1' @click='onClickGameStatus'
+          :checked="gameStatus === 1">
         試合中
-      </button>
-      <button
-        id='game-status-2'
-        :class="[ gameStatus === 2 ? 'active' : 'nonactive' ]"
-        @click='onClickGameStatus'
-      >
+      </label>
+      <label :class="[ gameStatus === 2 ? 'active' : 'nonactive' ]">
+        <input type='radio' name='game-status'
+          id='game-status-2' @click='onClickGameStatus'
+          :checked="gameStatus === 2">
         試合終了
-      </button>
+      </label>
     </div>
 
     <div class='match-info'>
@@ -33,72 +30,32 @@
           <tr>
             <td>{{playerNames[0]}} ・ {{playerNames[1]}}</td>
             <td>
-              <select v-model='score[0]' @change='changeScore'>
-                <option value='0'>0</option>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
-                <option value='4'>4</option>
-                <option value='5'>5</option>
-                <option value='6'>6</option>
+              <select v-model='score[0]' @change='changeResult'>
+                <option v-for='n of 9' :key='n'>{{n-1}}</option>
               </select>
               －
-              <select v-model='score[1]' @change='changeScore'>
-                <option value='0'>0</option>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
-                <option value='4'>4</option>
-                <option value='5'>5</option>
-                <option value='6'>6</option>
+              <select v-model='score[1]' @change='changeResult'>
+                <option v-for='n of 9' :key='n'>{{n-1}}</option>
               </select>
             </td>
             <td>{{playerNames[2]}} ・ {{playerNames[3]}}</td>
           </tr>
-          <tr>
-            <td>
-              <button
-                id='game-result-1'
-                :class="[ gameResult === 1 ? 'active' : 'nonactive' ]"
-                @click='onClickGameResult'
-              >
-                勝ち
-              </button>
-              <button
-                id='game-result-2'
-                :class="[ gameResult === 2 ? 'active' : 'nonactive' ]"
-                @click='onClickGameResult'
-              >
-                負け
-              </button>
-            </td>
-            <td>
-              <button
-                id='game-result-0'
-                :class="[ gameResult === 0 ? 'active' : 'nonactive' ]"
-                @click='onClickGameResult'
-              >
-                引き分け
-              </button>
-            </td>
-              <button
-                id='game-result-2'
-                :class="[ gameResult === 2 ? 'active' : 'nonactive' ]"
-                @click='onClickGameResult'
-              >
-                勝ち
-              </button>
-              <button
-                id='game-result-1'
-                :class="[ gameResult === 1 ? 'active' : 'nonactive' ]"
-                @click='onClickGameResult'
-              >
-                負け
-              </button>
-            <td></td>
-          </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class='match-result'>
+      <template v-if='gameStatus === 2'>
+        <template v-if='gameResult === 0'>
+          <span>引き分け</span>
+        </template>
+        <template v-if='gameResult === 1'>
+          <span>{{playerNames[0]}} ・ {{playerNames[1]}}の勝ち</span>
+        </template>
+        <template v-if='gameResult === 2'>
+          <span>{{playerNames[2]}} ・ {{playerNames[3]}}の勝ち</span>
+        </template>
+      </template>
     </div>
 
     <div class='button-area'>
@@ -166,30 +123,30 @@ export default {
       this.gameStatus = this.drawInfo.draws[mno - 1].status;
     }
     this.gameResult = this.drawInfo.draws[mno - 1].result;
+    this.changeResult();
   },
 
   methods: {
     onClickGameStatus(e) {
       this.gameStatus = Number(e.currentTarget.id.slice(-1));
+      this.changeResult();
     },
 
-    onClickGameResult(e) {
-      this.gameResult = Number(e.currentTarget.id.slice(-1));
-    },
-
-    changeScore() {
-      // 入力されたスコアで勝敗をチェックする
-      if (this.score[0] > this.score[1]) {
-        // P1の勝ち
-        this.gameResult = 1;
-      }
-      else if (this.score[0] < this.score[1]) {
-        // P2の勝ち
-        this.gameResult = 2;
-      }
-      else {
-        // 引き分け
-        this.gameResult = 0;
+    changeResult() {
+      // 試合終了が選択されていた場合に勝敗をチェックする
+      if (this.gameStatus === GS_GAMESET) {
+        if (this.score[0] > this.score[1]) {
+          // P1の勝ち
+          this.gameResult = 1;
+        }
+        else if (this.score[0] < this.score[1]) {
+          // P2の勝ち
+          this.gameResult = 2;
+        }
+        else {
+          // 引き分け
+          this.gameResult = 0;
+        }
       }
     },
 
@@ -201,8 +158,10 @@ export default {
       // 入力されたスコア情報と結果を取得する
       this.drawInfo.draws[mno - 1].score[0] = Number(this.score[0]);
       this.drawInfo.draws[mno - 1].score[1] = Number(this.score[1]);
-      this.changeScore();
-      this.drawInfo.draws[mno - 1].result = this.gameResult;
+      if (this.gameStatus === GS_GAMESET) {
+        this.changeResult();
+        this.drawInfo.draws[mno - 1].result = this.gameResult;
+      }
 
       if ( (this.gameStatus === GS_GAMESET)
         && (this.gameStatus !== this.drawInfo.draws[mno - 1].status) ) {
@@ -233,17 +192,17 @@ export default {
 </script>
 
 <style lang='scss'>
+@import '../css/style-table.css';
+
 #match {
   text-align: center;
+  font-size: 12px;
+  
+}
 
-  table {
-    margin: 3px auto;
-    table-layout: fixed;
-  }
-
-  td {
-    border: none;
-    background-color: #FFFFFF;
+.match-status {
+  label {
+    font-size: 16px;
   }
 }
 
@@ -251,8 +210,19 @@ export default {
   margin: 10px auto;
 }
 
+.match-result {
+  margin: 20px auto;
+  font-size: 16px;
+
+  span {
+    background-color: greenyellow;
+    padding: 3px;
+    border: solid 1px;
+  }
+}
+
 .active {
   font-weight: bold;
-  background-color: #8eff8e;
+  background-color: greenyellow;
 }
 </style>

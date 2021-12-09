@@ -2,13 +2,10 @@
   <div id='app'>
     <div id='header'>
       <div id='logo'>
-        <!--
-        <img src='TODO'>
-        -->
         <router-link to='/'>DrawReco</router-link>
       </div>
-      <div id='nav'>
-        <ul id='nav-item'>
+      <nav id='nav'>
+        <ul id='nav-menu'>
           <!-- HOME画面で表示するメニュー -->
           <template v-if='(this.$route.params.cid === undefined)'>
             <li><router-link :to="{ name: 'CreateDraw', params: {cid: 0} }">新規ドロー作成</router-link></li>
@@ -44,8 +41,9 @@
               </template>
           </template>
         </ul>
-      </div>
+      </nav>
     </div>
+    <div id='header-space'></div>
     <router-view/>
   </div>
 </template>
@@ -74,68 +72,112 @@ export default {
 </script>
 
 <style lang='scss'>
-#header {
-  text-align: center;
-
-  #logo {
-    /* box */
-    margin: 3px 0px;
-    padding: 0px 10px;
-    background-color: #FFFFFF;
-  
-    /* text */
-    font-size: 40px;
-    font-weight: 900;
-    color: green;
-
-    a {
-      color: green;
-    }
-  } /* #logo */
-
-  #nav-item {
-    /* flexbox */
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-  
-    /* box */
-    margin: 0px;
-    padding: 0px;
-
-    li {
-      /* box */
-      margin: 0px 2px 0px 0px;
-      border: 2px ridge green;
-      padding: 2px 5px;
-      width: 120px;
-      background-color: #8eff8e;
-    
-      /* list */
-      list-style: none;
-    
-      /* text */
-      color: #7F7F7F;
-      text-align: center;
-      text-decoration: none;
-    } /* li */
-
-    a {
-      &:hover {
-        /* text */
-        font-weight: bold;
-      }
-      
-      &.router-link-exact-active {
-        /* text */
-        color: #000000;
-        font-weight: bold;
-      }
-    }
-  } /* #nav-item */
+h1, h2, h3, h4 {
+  border-width: 2px;
+  border-style: none none ridge none;
+  border-color: yellowgreen;
 }
 
-h1, h2, h3, h4 {
-  background-color: #EFEFEF;
+h1 { margin: 3% 5%; }
+h2 { margin: 3% 10%; }
+h3 { margin: 3% 15%; }
+
+body {
+  margin: 0;
+}
+
+#app {
+  background-image: url(img/header.png);
+  background-repeat: repeat;
+  background-position: center 90px;
+  background-size: contain;
+  background-color: #CCC;
+  background-blend-mode: screen;
+
+  #header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: solid 1px green;
+
+    text-align: center;
+    background-image: url(img/header.png);
+    background-repeat: repeat-y;
+    background-position: center;
+    background-size: cover;
+    background-color: #CCC;
+    background-blend-mode: screen;
+
+    #logo {
+      /* text */
+      font-size: 32px;
+      font-weight: bold;
+
+      a {
+        color: green;
+      }
+    } /* #logo */
+
+    #nav {
+      #nav-menu {
+        /* flexbox */
+        display: flex;
+
+        /* box */
+        margin: 0px;
+        padding: 0px 0px 10px 0px;
+
+        li {
+          /* box */
+          margin: 0px 2px 0px 0px;
+          border: 2px ridge green;
+          padding: 2px 5px;
+          width: 125px;
+          background-color: greenyellow;
+          flex-shrink: 0;
+
+          /* list */
+          list-style: none;
+
+          /* text */
+          color: #7F7F7F;
+          text-align: center;
+        } /* li */
+
+        a {
+          &:hover {
+            /* text */
+            font-weight: bold;
+          }
+
+          &.router-link-exact-active {
+            /* text */
+            color: #000000;
+            font-weight: bold;
+          }
+        } /* a */
+      } /* #nav-menu */
+    } /* nav */
+  } /* #header */
+
+  #header-space {
+    top: 0;
+    height: 91px;
+  }
+}
+
+@media (min-width: 450px) {
+  #nav-menu {
+    flex-flow: row nowrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 450px) {
+  #nav {
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    overflow: auto;
+  }
 }
 </style>

@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<style>
+<style lang='scss'>
 .feature-support {
   margin: 100px 0px 0px 0px;
 }
