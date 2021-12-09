@@ -126,14 +126,6 @@ export default {
   font-size: 20px;
 }
 
-a {
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
 table {
   margin: 3px auto;
   border-collapse: collapse;
