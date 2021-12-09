@@ -83,29 +83,10 @@ export default {
 </script>
 
 <style lang='scss'>
+@import '../css/style-table.css';
+
 #draw-list {
   text-align: center;
-
-  table {
-    margin: 3px auto;
-    border-collapse: collapse;
-    table-layout: fixed;
-  }
-
-  th,td {
-    /* box */
-    border: 1px solid;
-    padding: 5px 10px;
-  }
-
-  th {
-    background-color: #8EFF8E;
-  }
-
-  td {
-    white-space: pre-wrap;
-    background-color: #E0FFE0;
-    text-align: center;
-  }
+  font-size: 12px;
 }
 </style>

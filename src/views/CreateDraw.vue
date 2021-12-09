@@ -92,7 +92,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss'>
 .create-draw {
   text-align: center;
 

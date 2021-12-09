@@ -79,6 +79,14 @@ export default {
     onClickEditComplete() {
       // 表示モードに切り替え
       this.mode = 'view';
+
+      // プレイヤー名が空欄の場合はデフォルトの名前にする
+      this.playerInfo.players.forEach((element, i) => {
+        if (element.name === '') {
+          element.name = i + 1 + '番';
+        }
+      });
+
       // プレイヤー情報に変更がある場合はFirebaseのドキュメントを更新する
       if(JSON.stringify(this.playerInfo.players) !== JSON.stringify(this.playersClone)) {
         const cid = this.$route.params.cid;
@@ -90,7 +98,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss'>
+@import '../css/style-table.css';
+
 #player {
   text-align: center;
   font-size: 12px;
@@ -110,25 +120,5 @@ export default {
 
 .button-area {
   margin: 20px 0px;
-}
-
-table {
-  margin: 3px auto;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-
-th,td {
-  /* box */
-  border: 1px solid;
-  padding: 5px 10px;
-}
-
-th {
-  background-color: #8EFF8E;
-}
-
-td {
-  background-color: #E0FFE0;
 }
 </style>

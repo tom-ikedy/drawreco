@@ -95,23 +95,7 @@ export default {
 <style lang='scss'>
 #setting {
   text-align: center;
-
-  table {
-    margin: 3px auto;
-    table-layout: fixed;
-  }
-
-  th,td {
-    padding: 5px 10px;
-  }
-
-  th {
-    background-color: #8EFF8E;
-  }
-
-  td {
-    background-color: #FFFFFF;
-  }
+  font-size: 12px;
 
   .draw-delete {
     margin: 100px auto;

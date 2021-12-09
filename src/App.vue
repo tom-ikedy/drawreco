@@ -133,7 +133,7 @@ body {
           border: 2px ridge green;
           padding: 2px 5px;
           width: 125px;
-          background-color: #8eff8e;
+          background-color: greenyellow;
           flex-shrink: 0;
 
           /* list */

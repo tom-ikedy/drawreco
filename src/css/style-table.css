@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+table {
+  margin: 3px auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,td {
+  /* box */
+  border: 1px solid;
+  padding: 5px 10px;
+}
+
+th {
+  background-color: greenyellow;
+}
+
+td {
+  white-space: pre-wrap;
+  background-color: #F0FFF0CF;
+  text-align: center;
+}
