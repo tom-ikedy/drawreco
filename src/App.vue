@@ -89,10 +89,9 @@ body {
 #app {
   background-image: url(img/header.png);
   background-repeat: repeat;
-  background-position: center 90px;
+  background-position: center 80px;
   background-size: contain;
-  background-color: #CCC;
-  background-blend-mode: screen;
+  background-color: #FFF;
 
   #header {
     position: fixed;
@@ -105,8 +104,7 @@ body {
     background-repeat: repeat-y;
     background-position: center;
     background-size: cover;
-    background-color: #CCC;
-    background-blend-mode: screen;
+    background-color: #FFFFFFFF;
 
     #logo {
       /* text */
@@ -162,7 +160,7 @@ body {
 
   #header-space {
     top: 0;
-    height: 91px;
+    height: 85px;
   }
 }
 
