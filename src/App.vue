@@ -45,6 +45,10 @@
     </div>
     <div id='header-space'></div>
     <router-view/>
+    <footer id='footer'>
+      <div id='version'>DrawReco Version 0.0.1 (alpha version)</div>
+      <!-- <div id='copyright'>© 2021-2022 Tomoya Ikeda All rights reserved.</div> -->
+    </footer>
   </div>
 </template>
 
@@ -87,6 +91,8 @@ body {
 }
 
 #app {
+  text-align: center;
+
   background-image: url(img/header.png);
   background-repeat: repeat;
   background-position: center 80px;
@@ -99,7 +105,6 @@ body {
     width: 100%;
     border-bottom: solid 1px green;
 
-    text-align: center;
     background-image: url(img/header.png);
     background-repeat: repeat-y;
     background-position: center;
@@ -161,6 +166,15 @@ body {
   #header-space {
     top: 0;
     height: 85px;
+  }
+
+  #footer {
+    margin: 50px 0 0 0;
+
+    #version,#copyright {
+      text-align: right;
+      font-size: 12px;
+    }
   }
 }
 
