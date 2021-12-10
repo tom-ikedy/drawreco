@@ -104,10 +104,9 @@ export default {
 
 #setting {
   text-align: center;
-  font-size: 12px;
 
   .draw-delete {
-    margin: 100px auto;
+    margin: 100px 0 0 0;
     
     button {
       color: red;

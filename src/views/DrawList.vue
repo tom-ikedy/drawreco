@@ -87,6 +87,5 @@ export default {
 
 #draw-list {
   text-align: center;
-  font-size: 12px;
 }
 </style>

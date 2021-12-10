@@ -196,33 +196,30 @@ export default {
 
 #match {
   text-align: center;
-  font-size: 12px;
-  
-}
 
-.match-status {
-  label {
+  .match-status {
+    label {
+      font-size: 16px;
+    }
+    .active {
+      font-weight: bold;
+      background-color: greenyellow;
+    }
+  }
+
+  .match-info {
+    margin: 10px auto;
+  }
+
+  .match-result {
+    margin: 20px auto;
     font-size: 16px;
+
+    span {
+      background-color: greenyellow;
+      padding: 3px;
+      border: solid 1px;
+    }
   }
-}
-
-.match-info {
-  margin: 10px auto;
-}
-
-.match-result {
-  margin: 20px auto;
-  font-size: 16px;
-
-  span {
-    background-color: greenyellow;
-    padding: 3px;
-    border: solid 1px;
-  }
-}
-
-.active {
-  font-weight: bold;
-  background-color: greenyellow;
 }
 </style>
