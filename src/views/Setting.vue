@@ -73,7 +73,6 @@ export default {
       const cid = this.$route.params.cid;
       const did = this.$route.params.did;
       // Firebaseのドキュメント情報を更新する
-      this.drawInfo.name = this.drawname;
       this.docInfo.config.rankBorder = this.rankBorder;
       updateDocInfo(cid, did, this.docInfo);
       // 前のページに戻る
