@@ -62,7 +62,7 @@
     <div id='header-space'></div>
     <router-view/>
     <footer id='footer'>
-      <div id='version'>DrawReco Version 0.0.1 (alpha version)</div>
+      <div id='version'>DrawReco Version 1.0.0</div>
       <!-- <div id='copyright'>© 2021-2022 Tomoya Ikeda All rights reserved.</div> -->
     </footer>
   </div>
@@ -130,8 +130,9 @@ h3 { margin: 3% 15%; }
   background-image: url(img/background-image.png);
   background-repeat: repeat;
   background-position: center 35px;
-  background-size: contain;
+  background-size: 100%;
   background-color: #FFF;
+  min-height: 100vh;
 }
 
 #header {
