@@ -98,7 +98,11 @@ export default {
 
     // 勝率を計算する
     this.rankInfo.forEach((element) => {
-      const rate = element.win * 100 / (element.win + element.lose + element.tie);
+      let rate = 0;
+      const gameNum = element.win + element.lose + element.tie;
+      if (gameNum !== 0) {
+        rate = element.win * 100 / gameNum;
+      }
       element.rate = Math.floor(rate * 10) / 10;
       element.rate = element.rate.toFixed(1);
     });
@@ -128,6 +132,5 @@ export default {
 
 #ranking {
   text-align: center;
-  font-size: 12px;
 }
 </style>

@@ -103,7 +103,6 @@ export default {
 
 #player {
   text-align: center;
-  font-size: 12px;
 }
 
 .player-no {

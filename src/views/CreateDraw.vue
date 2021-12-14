@@ -63,7 +63,7 @@ export default {
       courtNumMax: 1,
       playerNum: 4,
       playerNumMin: 4,
-      playerNumMax: 8,
+      playerNumMax: 10,
       gameEvent: '',
     };
   },

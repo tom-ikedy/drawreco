@@ -1,6 +1,6 @@
 <template>
   <div id='setting'>
-    <h1>{{drawInfo.name}}</h1>
+    <h1>{{drawname}}</h1>
     <h2>設定</h2>
 
     <div>
@@ -11,12 +11,14 @@
         </thead>
         <tbody>
           <tr>
+            <td>ドロー名</td>
+            <td><input v-model='drawInfo.name'></td>
+          </tr>
+          <tr>
             <td>ランキング表示</td>
             <td>
               <select v-model='rankBorder'>
-                <option v-for='(player, index) in playerInfo.players' :key='index'>
-                  {{index + 1}}
-                </option>
+                <option v-for='n of playerNum' :key='n'>{{n}}</option>
               </select>
               位まで
             </td>
@@ -45,9 +47,11 @@ import { deleteDraw } from '@/services/DrawRecoLib.js';
 export default {
   data() {
     return {
+      drawname: '',
       docInfo: {},
       drawInfo: {},
       playerInfo: {},
+      playerNum: 0,
       rankBorder: 0,
     };
   },
@@ -59,7 +63,9 @@ export default {
 
     this.rankBorder = this.docInfo.config.rankBorder;
     this.drawInfo = this.docInfo.drawInfo;
+    this.drawname = this.drawInfo.name;
     this.playerInfo = this.docInfo.playerInfo;
+    this.playerNum = Number(this.playerInfo.num);
   },
 
   methods: {
@@ -93,12 +99,13 @@ export default {
 </script>
 
 <style lang='scss'>
+@import '../css/style-table.css';
+
 #setting {
   text-align: center;
-  font-size: 12px;
 
   .draw-delete {
-    margin: 100px auto;
+    margin: 100px 0 0 0;
     
     button {
       color: red;

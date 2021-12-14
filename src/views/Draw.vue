@@ -127,7 +127,6 @@ export default {
 
 #draw {
   text-align: center;
-  font-size: 12px;
 }
 
 .gameset {
